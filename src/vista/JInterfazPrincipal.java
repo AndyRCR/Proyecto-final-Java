@@ -2,8 +2,12 @@ package vista;
 
 public class JInterfazPrincipal extends javax.swing.JFrame {
 
+    Inicio inicio = new Inicio();
+
     public JInterfazPrincipal() {
         initComponents();
+        dktopPrincipal.add(inicio);
+        inicio.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
