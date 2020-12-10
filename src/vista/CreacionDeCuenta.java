@@ -29,12 +29,13 @@ public class CreacionDeCuenta extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         txtDatosPersonales2 = new javax.swing.JTextField();
 
+        setBorder(null);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCrearUsuario.setText("Crear Usuario");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("CREACIÓN DE CUENTA");
+        jLabel3.setText("Creación de cuentas");
 
         btnValidar.setText("Validar");
 
