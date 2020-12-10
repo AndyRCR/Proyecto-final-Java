@@ -1,10 +1,5 @@
 package vista;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-
 public class Inicio extends javax.swing.JInternalFrame {
 
     public Inicio() {
@@ -15,7 +10,7 @@ public class Inicio extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new ImagenFondo();
+        jPanel1 = new javax.swing.JPanel();
         btnLimpiar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtDNI = new javax.swing.JTextField();
@@ -107,18 +102,4 @@ public class Inicio extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
-    
-    class ImagenFondo extends JPanel {
-
-        private Image imagen;
-
-        @Override
-        public void paint(Graphics g) {
-            imagen = new ImageIcon(getClass().getResource("/Fondos/fondo1.jpg")).getImage();
-            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-
-            setOpaque(false);
-            super.paint(g);
-        }
-    }
 }

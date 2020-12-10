@@ -40,8 +40,6 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-<<<<<<< HEAD
-=======
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -53,7 +51,6 @@
                                       <Component id="txtDatosPersonales" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
->>>>>>> 165d2229f2da9130766efe02bbfd295c1d18359d
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -71,23 +68,6 @@
                                   <Component id="txtDNI" min="-2" pref="160" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-<<<<<<< HEAD
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
-                                  <Component id="txtPassword" min="-2" pref="160" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="txtDatosPersonales" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtCrearContraseña" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtConfirmarContraseña" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
-                                  <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
-=======
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -104,7 +84,6 @@
                                   </Group>
                               </Group>
                               <Component id="jLabel3" alignment="1" max="32767" attributes="0"/>
->>>>>>> 165d2229f2da9130766efe02bbfd295c1d18359d
                           </Group>
                       </Group>
                   </Group>
