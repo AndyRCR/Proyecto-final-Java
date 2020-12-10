@@ -61,8 +61,8 @@
                                   </Group>
                                   <EmptySpace min="57" pref="57" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtDatosPersonales2" max="32767" attributes="0"/>
                                       <Component id="txtDatosPersonales1" max="32767" attributes="0"/>
+                                      <Component id="txtDatosPersonales2" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
