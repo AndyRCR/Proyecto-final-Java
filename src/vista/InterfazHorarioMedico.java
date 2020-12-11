@@ -1,10 +1,10 @@
 package vista;
-public class HorasDeDisposicion extends javax.swing.JInternalFrame {
+public class InterfazHorarioMedico extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NewJInternalFrame
      */
-    public HorasDeDisposicion() {
+    public InterfazHorarioMedico() {
         initComponents();
     }
 

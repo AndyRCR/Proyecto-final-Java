@@ -1,8 +1,8 @@
 package vista;
 
-public class AgendaVacunas extends javax.swing.JInternalFrame {
+public class InterfazReservarCita extends javax.swing.JInternalFrame {
 
-    public AgendaVacunas() {
+    public InterfazReservarCita() {
         initComponents();
         distritos();
         horas();

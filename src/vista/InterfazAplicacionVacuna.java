@@ -9,12 +9,12 @@ package vista;
  *
  * @author Usuario
  */
-public class AplicacionDeVacunas extends javax.swing.JInternalFrame {
+public class InterfazAplicacionVacuna extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form AplicacionDeVacunas
      */
-    public AplicacionDeVacunas() {
+    public InterfazAplicacionVacuna() {
         initComponents();
     }
 

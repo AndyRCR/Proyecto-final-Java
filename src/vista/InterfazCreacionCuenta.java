@@ -1,8 +1,8 @@
 package vista;
 
-public class CreacionDeCuenta extends javax.swing.JInternalFrame {
+public class InterfazCreacionCuenta extends javax.swing.JInternalFrame {
 
-    public CreacionDeCuenta() {
+    public InterfazCreacionCuenta() {
         initComponents();
     }
 

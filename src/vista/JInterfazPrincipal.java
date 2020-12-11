@@ -3,7 +3,7 @@ package vista;
 public class JInterfazPrincipal extends javax.swing.JFrame {
 
     Inicio inicio = new Inicio();
-    AgendaVacunas agendaVacunas = new AgendaVacunas();
+    InterfazReservarCita agendaVacunas = new InterfazReservarCita();
 
     public JInterfazPrincipal() {
         initComponents();
