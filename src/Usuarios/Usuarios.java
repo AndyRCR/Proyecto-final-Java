@@ -3,10 +3,13 @@ package Usuarios;
 public class Usuarios {
 
     private String nombre;
-    private int DNI;
+    private String dni;
     private String password;
 
-    public Usuarios() {
+    public Usuarios(String nombre, String dni, String password) {
+        this.nombre = nombre;
+        this.dni = dni;
+        this.password = password;
     }
 
     public String getNombre() {
@@ -17,12 +20,12 @@ public class Usuarios {
         this.nombre = nombre;
     }
 
-    public int getDNI() {
-        return DNI;
+    public String getDNI() {
+        return this.dni;
     }
 
-    public void setDNI(int DNI) {
-        this.DNI = DNI;
+    public void setDNI(String DNI) {
+        this.dni = DNI;
     }
 
     public String getPassword() {
@@ -33,7 +36,7 @@ public class Usuarios {
         this.password = password;
     }
 
-    public boolean validarUsuario(int DNI) {
+    public boolean validarUsuario(String dni) {
         //Solicitar la busqueda
         return true; // Modificar por resultado de la validación
     }
