@@ -4,7 +4,11 @@ package Usuarios;
 public class Hospital {
     private String nombreHospital;
     private int aforo;
-
+    
+    public Hospital(String nombreHospital, int aforo){
+        this.nombreHospital = nombreHospital;
+        this.aforo = aforo;
+    }
     public String getNombreHospital() {
         return nombreHospital;
     }
