@@ -2,22 +2,27 @@ package Usuarios;
 
 import java.util.Date;
 
-public class Paciente extends Usuarios {
+public class Paciente {
+    private String nombrePaciente;
+    private String dniPaciente;
+    private String contraseñaPaciente;
     private boolean estadoPaciente;
     private Date fechaCitaPaciente;
     
     public Paciente(String nombrePaciente, String dniPaciente, String contraseñaPaciente, boolean estadoPaciente, Date fechaCitaPaciente) {
-        super(nombrePaciente, dniPaciente, contraseñaPaciente);
+        this.nombrePaciente = nombrePaciente;
+        this.dniPaciente = dniPaciente;
+        this.contraseñaPaciente = contraseñaPaciente;
         this.estadoPaciente = estadoPaciente;
         this.fechaCitaPaciente = fechaCitaPaciente;
     }
     
     public String getNombrePaciente() {
-        return super.getNombre();
+        return this.nombrePaciente;
     }
 
     public String getDniPaciente() {
-        return super.getDNI();
+        return this.dniPaciente;
     }
 
     public boolean getEstadoPaciente() {
