@@ -1,5 +1,8 @@
 package vista;
 
+import BaseDeDatos.TestConexion;
+import com.mysql.jdbc.Connection;
+
 public class JInterfazPrincipal extends javax.swing.JFrame {
 
     Inicio inicio = new Inicio();
@@ -11,6 +14,11 @@ public class JInterfazPrincipal extends javax.swing.JFrame {
         inicio.setVisible(true);
     }
 
+    //Codigo prueba de conexion
+    TestConexion conexion = new TestConexion();
+    Connection cnx = (Connection) conexion.getConnection();
+    //Codigo prueba de conexion
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
