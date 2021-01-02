@@ -10,6 +10,7 @@ public class JInterfazPrincipal extends javax.swing.JFrame {
 
     public JInterfazPrincipal() {
         initComponents();
+        setLocationRelativeTo(null);
         dktopPrincipal.add(inicio);
         inicio.setVisible(true);
     }
@@ -37,7 +38,7 @@ public class JInterfazPrincipal extends javax.swing.JFrame {
         );
         dktopPrincipalLayout.setVerticalGroup(
             dktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGap(0, 482, Short.MAX_VALUE)
         );
 
         Menu.setText("Inicio");
