@@ -6,9 +6,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TestConexion {
-    
+  
     //variables
-    private static String url="jdbc:mysql://localhost:33061/bdhospital";
+    private static String url="jdbc:mysql://localhost:33061/bdhospital2";
     private static String user="root";
     private static String psw=""; 
     private static Connection cn;

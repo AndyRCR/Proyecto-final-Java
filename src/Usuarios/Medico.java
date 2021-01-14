@@ -6,6 +6,25 @@ public class Medico{
     private String nombreMedico;
     private String dniMedico;
     private String contraseñaMedico;
+    private int turno;
+    private int idhospital;
+
+    public int getTurno() {
+        return turno;
+    }
+
+    public void setTurno(int turno) {
+        this.turno = turno;
+    }
+
+    public int getIdhospital() {
+        return idhospital;
+    }
+
+    public void setIdhospital(int idhospital) {
+        this.idhospital = idhospital;
+    }
+    
 
     public int getIdMedico() {
         return idMedico;

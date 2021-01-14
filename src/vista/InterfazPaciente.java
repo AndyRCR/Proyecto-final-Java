@@ -145,12 +145,14 @@ public class InterfazPaciente extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         InterfazReservarCita ventana = new InterfazReservarCita();
         ventana.setVisible(true);
+        ventana.pasarPaciente(pa);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         InterfazConsultarHospitales ventana = new InterfazConsultarHospitales();
         ventana.setVisible(true);
+        ventana.pasarPaciente(pa);
         this. dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 

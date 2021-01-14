@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -80,12 +81,100 @@ public class MedicoDAO {
                 me.setNombreMedico(rs.getString("nombre_medico"));
                 me.setContraseñaMedico(rs.getString("password_medico"));
                 me.setDniMedico(rs.getString("dni_medico"));
+                
             }
 
             cn.close();
             ps.close();
             rs.close();
             return me;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    public static Medico buscarMedicoPorNombre (String nombre){
+        String sql = "select * from medico where nombre_medico=?";
+        cn = TestConexion.abrir();
+        Medico me = null;
+        
+        try {
+            ps = cn.prepareStatement(sql);
+            ps.setString(1, nombre);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                me = new Medico();
+                
+                me.setIdMedico(rs.getInt("idmedico"));
+                me.setNombreMedico(rs.getString("nombre_medico"));
+                me.setContraseñaMedico(rs.getString("password_medico"));
+                me.setDniMedico(rs.getString("dni_medico"));
+            }
+
+            cn.close();
+            ps.close();
+            rs.close();
+            return me;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    public static Medico buscarMedicoPorIDMedico(String idmedico) {
+        
+        String sql = "select * from medico where idmedico=?";
+        cn = TestConexion.abrir();
+        Medico me = null;
+        
+        try {
+            ps = cn.prepareStatement(sql);
+            ps.setString(1, idmedico);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                me = new Medico();
+                
+                me.setIdMedico(rs.getInt("idmedico"));
+                me.setNombreMedico(rs.getString("nombre_medico"));
+                me.setContraseñaMedico(rs.getString("password_medico"));
+                me.setDniMedico(rs.getString("dni_medico"));
+                
+            }
+
+            cn.close();
+            ps.close();
+            rs.close();
+            return me;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    public static ArrayList<Medico> buscarMedicosPorHorario_Hospital(int turno, int idhospital){
+        String sql = "select * from medico where turno=? and idhospital=?";
+        cn = TestConexion.abrir();
+        Medico me = null;
+        ArrayList<Medico> medicos = new ArrayList<>();
+        
+        try {
+            ps = cn.prepareStatement(sql);
+            ps.setInt(1, turno);
+            ps.setInt(2, idhospital);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                me = new Medico();
+                
+                me.setIdMedico(rs.getInt("idmedico"));
+                me.setNombreMedico(rs.getString("nombre_medico"));
+                me.setContraseñaMedico(rs.getString("password_medico"));
+                me.setDniMedico(rs.getString("dni_medico"));
+                
+                medicos.add(me);
+            }
+
+            cn.close();
+            ps.close();
+            rs.close();
+            return medicos;
         } catch (SQLException ex) {
             return null;
         }

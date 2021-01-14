@@ -1,14 +1,26 @@
 
 package vista;
 
+import Usuarios.Hospital;
+import Usuarios.Paciente;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import modelo.DAO.HospitalDAO;
 
 public class InterfazConsultarHospitales extends javax.swing.JFrame {
 
+    Paciente pa;
+    
+    public void pasarPaciente(Paciente pa){
+        this.pa=pa;
+    }
+    
     void distritos() {
+        cbodistrito.addItem("Seleccione un distrito");
         cbodistrito.addItem("Ancón");
         cbodistrito.addItem("Ate Vitarte");
         cbodistrito.addItem("Barranco");
@@ -54,6 +66,28 @@ public class InterfazConsultarHospitales extends javax.swing.JFrame {
         cbodistrito.addItem("Villa María del Triunfo");
     }
     
+    public void seleccionarHospital(){
+        int index = tablaHospitales.getSelectedRow();
+        
+        lblhospital.setText(tablaHospitales.getValueAt(index, 0).toString());
+        lbldireccion.setText(tablaHospitales.getValueAt(index, 1).toString());
+    }
+    
+    public void listarHospitales() {
+        lblhospital.setText("");
+        lbldireccion.setText("");
+        
+        String c[] = {"Hospital", "Direccion"};
+        DefaultTableModel mod=new DefaultTableModel(null,c);
+        
+        tablaHospitales.setModel(mod);
+        
+        ArrayList<Hospital> hospitales = HospitalDAO.buscarHospitalesPorDistrito(cbodistrito.getSelectedIndex());
+        
+        for(Hospital x:hospitales){
+            mod.addRow(new Object[]{x.getNombre_hospital(), x.getDireccion_hospital()});
+        }
+    }
     
     public InterfazConsultarHospitales() {
         initComponents();
@@ -71,9 +105,15 @@ public class InterfazConsultarHospitales extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cbodistrito = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaHospitales = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lbldireccion = new javax.swing.JLabel();
+        lblhospital = new javax.swing.JLabel();
+        lblaforo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -83,15 +123,29 @@ public class InterfazConsultarHospitales extends javax.swing.JFrame {
 
         jLabel2.setText("Distrito:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        cbodistrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbodistritoActionPerformed(evt);
+            }
+        });
+
+        tablaHospitales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-
+                "null", "null"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tablaHospitales.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaHospitalesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaHospitales);
+        if (tablaHospitales.getColumnModel().getColumnCount() > 0) {
+            tablaHospitales.getColumnModel().getColumn(0).setPreferredWidth(10);
+        }
 
         jButton1.setText("Atras");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -102,48 +156,77 @@ public class InterfazConsultarHospitales extends javax.swing.JFrame {
 
         jLabel3.setText("Hospitales en el distrito:");
 
+        jLabel4.setText("Hospital:");
+
+        jLabel5.setText("Direccion:");
+
+        jLabel6.setText("Aforo:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(147, 147, 147))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(175, 175, 175))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(cbodistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap())
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(57, 57, 57)))
+                .addGap(283, 283, 283)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addContainerGap())))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(35, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbodistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lbldireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblhospital, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+                                    .addComponent(lblaforo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(244, 244, 244))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36)
+                .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbodistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblhospital, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lbldireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblaforo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(jButton1)
-                .addGap(62, 62, 62))
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,8 +246,17 @@ public class InterfazConsultarHospitales extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         InterfazPaciente ventana = new InterfazPaciente();
         ventana.setVisible(true);
+        ventana.pasarPaciente(pa);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbodistritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbodistritoActionPerformed
+        listarHospitales();
+    }//GEN-LAST:event_cbodistritoActionPerformed
+
+    private void tablaHospitalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaHospitalesMouseClicked
+        seleccionarHospital();
+    }//GEN-LAST:event_tablaHospitalesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -207,9 +299,15 @@ public class InterfazConsultarHospitales extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblaforo;
+    private javax.swing.JLabel lbldireccion;
+    private javax.swing.JLabel lblhospital;
+    private javax.swing.JTable tablaHospitales;
     // End of variables declaration//GEN-END:variables
 
     class ImagenFondo extends JPanel {
