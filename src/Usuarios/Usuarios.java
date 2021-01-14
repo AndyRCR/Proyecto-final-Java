@@ -6,12 +6,6 @@ public class Usuarios {
     private String dni;
     private String password;
 
-    public Usuarios(String nombre, String dni, String password) {
-        this.nombre = nombre;
-        this.dni = dni;
-        this.password = password;
-    }
-
     public String getNombre() {
         return nombre;
     }

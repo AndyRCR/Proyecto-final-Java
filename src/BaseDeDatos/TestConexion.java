@@ -2,37 +2,48 @@ package BaseDeDatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TestConexion {
-
+    
     private static Connection conn;
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String user = "root";
-    private static final String password = "toor";
-    private static final String url = "jdbc:mysql://localhost:3306/sistema_vacunas";
+    private static final String psw = "1234";
+    private static final String url = "jdbc:mysql://127.0.0.1:3306/bdhospital";
 
-    public TestConexion() {
-        conn = null;
+    public static Connection abrir(){
         try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url, user, password);
-            if (conn != null) {
-                System.out.println("Conexion establecida");
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Error");
+            //registrar drivers para mysql
+            Class.forName("com.mysql.jdbc.Driver");
+            //abrir conexion
+            conn=DriverManager.getConnection(url, user, psw);
+        } catch (Exception ex) {
+            Logger.getLogger(TestConexion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return conn;
     }
-
+    
     public Connection getConnection() {
         return conn;
     }
-
-    public void desconectar() {
-        conn = null;
-        if (conn == null) {
-            System.out.println("Cerrado papu");
+    
+    /*
+    //variables
+    private static String url="jdbc:mysql://localhost:33061/bdhospital";
+    private static String user="root";
+    private static String psw=""; 
+    private static Connection cn;
+    public static Connection abrir(){
+        try {
+            //registrar drivers para mysql
+            Class.forName("com.mysql.jdbc.Driver");
+            //abrir conexion
+            cn=DriverManager.getConnection(url, user, psw);
+        } catch (Exception ex) {
+            Logger.getLogger(TestConexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+        return cn;
+    }*/
 }
