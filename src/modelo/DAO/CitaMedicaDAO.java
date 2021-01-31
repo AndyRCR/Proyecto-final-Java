@@ -70,4 +70,39 @@ public class CitaMedicaDAO {
             return null;
         }
     }
+    
+    public static ArrayList<CitaMedica> buscarCitasMedicasPorNombreMedico(String medico) {
+        String sql = "select * from cita_medica where nombre_medico=?";
+        cn = TestConexion.abrir();
+        CitaMedica cm = null;
+        ArrayList<CitaMedica> citas = new ArrayList<>();
+
+        try {
+            ps = cn.prepareStatement(sql);
+            ps.setString(1, medico);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                cm = new CitaMedica();
+
+                cm.setIdcita(rs.getInt("idcita_medica"));
+                cm.setIdpaciente(rs.getInt("idpaciente"));
+                cm.setIdhospital(rs.getInt("idhospital"));
+                cm.setIdvacuna(rs.getInt("idvacuna"));
+                cm.setTurno(rs.getInt("turno_vacuna"));
+                cm.setFecha(rs.getString("fecha"));
+                cm.setMedico_asignado(rs.getString("nombre_medico"));
+                cm.setEstado(rs.getInt("estado"));
+
+                citas.add(cm);
+            }
+
+            cn.close();
+            ps.close();
+            rs.close();
+            return citas;
+
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 }

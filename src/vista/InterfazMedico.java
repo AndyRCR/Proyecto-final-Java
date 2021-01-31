@@ -1,19 +1,48 @@
 
 package vista;
 
+import Usuarios.CitaMedica;
+import Usuarios.Hospital;
 import Usuarios.Medico;
+import Usuarios.Paciente;
+import Usuarios.Vacuna;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import modelo.DAO.CitaMedicaDAO;
+import modelo.DAO.HospitalDAO;
+import modelo.DAO.PacienteDAO;
+import modelo.DAO.VacunaDAO;
 
 public class InterfazMedico extends javax.swing.JFrame {
 
     Medico me;
+    Hospital ho;
+    Paciente pa;
+    Vacuna vac;
+    
+    public void listarCitas() {
+        String c[] = {"Hospital", "Vacuna", "Paciente", "Fecha", "Hora"};
+        DefaultTableModel mod = new DefaultTableModel(null, c);
+        tablaCitas.setModel(mod);
+
+        ArrayList<CitaMedica> citas = CitaMedicaDAO.buscarCitasMedicasPorNombreMedico(me.getNombreMedico());
+
+        for (CitaMedica x : citas) {
+            pa = PacienteDAO.buscarPacientePorIDPaciente(x.getIdpaciente());
+            ho = HospitalDAO.buscarHospitalPorIDHospital(x.getIdhospital());
+            vac = VacunaDAO.buscarVacunaPorIDVacuna(x.getIdvacuna());
+            mod.addRow(new Object[]{ho.getNombre_hospital(), vac.getDescripcion(), pa.getNombrePaciente(), x.getFecha(), x.getHora()});
+        }
+    }
     
     public void pasarMedico(Medico me){
         this.me = me;
         lblnombre.setText(me.getNombreMedico());
+        listarCitas();
     }
     
     public InterfazMedico() {
@@ -32,7 +61,7 @@ public class InterfazMedico extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaCitas = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         lblnombre = new javax.swing.JLabel();
@@ -56,7 +85,7 @@ public class InterfazMedico extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel4.setText("Citas pendientes:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -64,9 +93,14 @@ public class InterfazMedico extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tablaCitas);
 
         jButton1.setText("Actualizar lista");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Salir de mi cuenta");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +193,10 @@ public class InterfazMedico extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        listarCitas();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -203,8 +241,8 @@ public class InterfazMedico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblnombre;
+    private javax.swing.JTable tablaCitas;
     // End of variables declaration//GEN-END:variables
 
     class ImagenFondo extends JPanel {

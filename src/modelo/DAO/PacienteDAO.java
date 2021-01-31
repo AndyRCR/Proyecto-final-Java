@@ -94,6 +94,36 @@ public class PacienteDAO {
         }
     }
 
+    public static Paciente buscarPacientePorIDPaciente(int idpaciente) {
+
+        String sql = "select * from paciente where idpaciente=?";
+        cn = TestConexion.abrir();
+        Paciente pa = null;
+
+        try {
+            ps = cn.prepareStatement(sql);
+            ps.setInt(1, idpaciente);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                pa = new Paciente();
+
+                pa.setIdPaciente(rs.getInt("idpaciente"));
+                pa.setNombrePaciente(rs.getString("nombre_paciente"));
+                pa.setContraseñaPaciente(rs.getString("password_paciente"));
+                pa.setEstadoPaciente(rs.getInt("registro_paciente"));
+                pa.setDniPaciente(rs.getString("DNI"));
+                pa.setEstadoPaciente(rs.getInt("registro_paciente"));
+            }
+
+            cn.close();
+            ps.close();
+            rs.close();
+            return pa;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
     public static boolean comprobarCuenta(String dni){
         String sql = "select * from paciente where DNI=?";
         cn = TestConexion.abrir();
