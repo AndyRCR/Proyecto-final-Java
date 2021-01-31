@@ -1,4 +1,3 @@
-
 package vista;
 
 import Usuarios.Hospital;
@@ -14,11 +13,11 @@ import modelo.DAO.HospitalDAO;
 public class InterfazConsultarHospitales extends javax.swing.JFrame {
 
     Paciente pa;
-    
-    public void pasarPaciente(Paciente pa){
-        this.pa=pa;
+
+    public void pasarPaciente(Paciente pa) {
+        this.pa = pa;
     }
-    
+
     void distritos() {
         cbodistrito.addItem("Seleccione un distrito");
         cbodistrito.addItem("Ancón");
@@ -65,30 +64,35 @@ public class InterfazConsultarHospitales extends javax.swing.JFrame {
         cbodistrito.addItem("Villa El Salvador");
         cbodistrito.addItem("Villa María del Triunfo");
     }
-    
-    public void seleccionarHospital(){
+
+    public void seleccionarHospital() {
         int index = tablaHospitales.getSelectedRow();
-        
+
         lblhospital.setText(tablaHospitales.getValueAt(index, 0).toString());
         lbldireccion.setText(tablaHospitales.getValueAt(index, 1).toString());
     }
-    
+
     public void listarHospitales() {
         lblhospital.setText("");
         lbldireccion.setText("");
-        
+
         String c[] = {"Hospital", "Direccion"};
-        DefaultTableModel mod=new DefaultTableModel(null,c);
-        
+        DefaultTableModel mod = new DefaultTableModel(null, c) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
         tablaHospitales.setModel(mod);
-        
+
         ArrayList<Hospital> hospitales = HospitalDAO.buscarHospitalesPorDistrito(cbodistrito.getSelectedIndex());
-        
-        for(Hospital x:hospitales){
+
+        for (Hospital x : hospitales) {
             mod.addRow(new Object[]{x.getNombre_hospital(), x.getDireccion_hospital()});
         }
     }
-    
+
     public InterfazConsultarHospitales() {
         initComponents();
         setLocationRelativeTo(null);
@@ -136,7 +140,15 @@ public class InterfazConsultarHospitales extends javax.swing.JFrame {
             new String [] {
                 "null", "null"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaHospitales.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaHospitalesMouseClicked(evt);
