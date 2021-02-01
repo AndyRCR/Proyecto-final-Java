@@ -184,8 +184,8 @@ public class PacienteDAO {
         }
     }
     
-    public static boolean comprobarPaciente(String dni, String nombre, String apep, String apem) {
-        String sql = "select * from paciente where DNI=? and nombre_paciente=?";
+    public static boolean comprobarPaciente(String dni, String nombre, String apep, String apem, String fecha) {
+        String sql = "select * from paciente where DNI=? and nombre_paciente=? and fecha_emision=?";
         cn = TestConexion.abrir();
         Paciente pa = null;
 
@@ -193,6 +193,7 @@ public class PacienteDAO {
             ps = cn.prepareStatement(sql);
             ps.setString(1, dni);
             ps.setString(2, apep + " " + apem + " " + nombre);
+            ps.setString(3, fecha);
             rs = ps.executeQuery();
             while (rs.next()) {
                 pa = new Paciente();

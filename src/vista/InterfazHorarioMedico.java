@@ -60,10 +60,6 @@ public class InterfazHorarioMedico extends javax.swing.JFrame {
         cboHoras.addItem("09:00-10:00");
         cboHoras.addItem("10:00-11:00");
         cboHoras.addItem("11:00-12:00");
-        cboHoras.addItem("12:00-13:00");
-        cboHoras.addItem("13:00-14:00");
-        cboHoras.addItem("14:00-15:00");
-        cboHoras.addItem("15:00-16:00");
     }
     
     public InterfazHorarioMedico() {

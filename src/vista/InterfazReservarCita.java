@@ -23,7 +23,7 @@ public class InterfazReservarCita extends javax.swing.JFrame {
     Medico me= new Medico();
     Hospital ho= new Hospital();
     private Date fecha = new Date();
-    SimpleDateFormat formatoFecha = new SimpleDateFormat("DD/MM/YYY");
+    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 
     public void pasarPaciente(Paciente pa) {
         this.pa = pa;
@@ -145,6 +145,8 @@ public class InterfazReservarCita extends javax.swing.JFrame {
 
     public void reservarCita() {
         Date date = cbofecha.getDate();
+        mensaje(formatoFecha.format(date));
+        mensaje(""+date);
         me = MedicoDAO.buscarMedicoPorNombre(cbomedico.getSelectedItem().toString());
         ho = HospitalDAO.buscarHospitalPorNombre(cbohospital.getSelectedItem().toString());
         CitaMedicaDAO.crearCitaMedica(pa, ho, me, cboHoras.getSelectedIndex(), formatoFecha.format(date), cbovacuna.getSelectedIndex());
