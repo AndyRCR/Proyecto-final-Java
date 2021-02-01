@@ -39,4 +39,30 @@ public class VacunaDAO {
             return null;
         }
     }
+    
+    public static Vacuna buscarVacunaPorDescripcion(String desc){
+        String sql = "select * from vacuna where descripcion_vacuna=?";
+        cn = TestConexion.abrir();
+        Vacuna vac = null;
+        
+        try {
+            ps = cn.prepareStatement(sql);
+            ps.setString(1, desc);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                vac = new Vacuna();
+                
+                vac.setIdvacuna(rs.getInt("idvacuna"));
+                vac.setNombre_vacuna(rs.getString("nombre_vacuna"));
+                vac.setDescripcion(rs.getString("descripcion_vacuna"));
+            }
+
+            cn.close();
+            ps.close();
+            rs.close();
+            return vac;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 }

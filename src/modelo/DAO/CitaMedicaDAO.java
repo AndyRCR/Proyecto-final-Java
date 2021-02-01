@@ -105,4 +105,37 @@ public class CitaMedicaDAO {
             return null;
         }
     }
+    
+    public static CitaMedica buscarCitaMedicaPorIDPacienteyVacuna(int idpaciente, int idvacuna) {
+
+        String sql = "select * from cita_medica where idpaciente=? AND idvacuna=?";
+        cn = TestConexion.abrir();
+        CitaMedica cm = null;
+
+        try {
+            ps = cn.prepareStatement(sql);
+            ps.setInt(1, idpaciente);
+            ps.setInt(2, idvacuna);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                cm = new CitaMedica();
+
+                cm.setIdcita(rs.getInt("idcita_medica"));
+                cm.setIdpaciente(rs.getInt("idpaciente"));
+                cm.setIdhospital(rs.getInt("idhospital"));
+                cm.setIdvacuna(rs.getInt("idvacuna"));
+                cm.setTurno(rs.getInt("turno_vacuna"));
+                cm.setFecha(rs.getString("fecha"));
+                cm.setMedico_asignado(rs.getString("nombre_medico"));
+                cm.setEstado(rs.getInt("estado"));
+            }
+
+            cn.close();
+            ps.close();
+            rs.close();
+            return cm;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 }

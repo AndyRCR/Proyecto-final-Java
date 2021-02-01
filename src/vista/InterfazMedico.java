@@ -23,6 +23,7 @@ public class InterfazMedico extends javax.swing.JFrame {
     Hospital ho;
     Paciente pa;
     Vacuna vac;
+    CitaMedica cm;
     
     public void listarCitas() {
         String c[] = {"Hospital", "Vacuna", "Paciente", "Fecha", "Hora"};
@@ -93,6 +94,11 @@ public class InterfazMedico extends javax.swing.JFrame {
 
             }
         ));
+        tablaCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaCitasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaCitas);
 
         jButton1.setText("Actualizar lista");
@@ -196,6 +202,15 @@ public class InterfazMedico extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         listarCitas();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tablaCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCitasMouseClicked
+        InterfazValidarCita ventana = new InterfazValidarCita();
+        ventana.setVisible(true);
+        vac = VacunaDAO.buscarVacunaPorDescripcion(tablaCitas.getValueAt(tablaCitas.getSelectedRow(),1).toString());
+        pa = PacienteDAO.buscarPacientePorNombre(tablaCitas.getValueAt(tablaCitas.getSelectedRow(), 2).toString());
+        cm = CitaMedicaDAO.buscarCitaMedicaPorIDPacienteyVacuna(pa.getIdPaciente(), vac.getIdvacuna());
+        ventana.pasarCitaMedica(cm);
+    }//GEN-LAST:event_tablaCitasMouseClicked
 
     /**
      * @param args the command line arguments
