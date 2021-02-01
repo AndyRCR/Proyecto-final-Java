@@ -23,7 +23,7 @@ public class InterfazReservarCita extends javax.swing.JFrame {
     Medico me= new Medico();
     Hospital ho= new Hospital();
     private Date fecha = new Date();
-    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 
     public void pasarPaciente(Paciente pa) {
         this.pa = pa;
@@ -112,10 +112,6 @@ public class InterfazReservarCita extends javax.swing.JFrame {
         cboHoras.addItem("09:00-10:00");
         cboHoras.addItem("10:00-11:00");
         cboHoras.addItem("11:00-12:00");
-        cboHoras.addItem("12:00-13:00");
-        cboHoras.addItem("13:00-14:00");
-        cboHoras.addItem("14:00-15:00");
-        cboHoras.addItem("15:00-16:00");
     }
 
     public void fecha() {
@@ -145,8 +141,6 @@ public class InterfazReservarCita extends javax.swing.JFrame {
 
     public void reservarCita() {
         Date date = cbofecha.getDate();
-        mensaje(formatoFecha.format(date));
-        mensaje(""+date);
         me = MedicoDAO.buscarMedicoPorNombre(cbomedico.getSelectedItem().toString());
         ho = HospitalDAO.buscarHospitalPorNombre(cbohospital.getSelectedItem().toString());
         CitaMedicaDAO.crearCitaMedica(pa, ho, me, cboHoras.getSelectedIndex(), formatoFecha.format(date), cbovacuna.getSelectedIndex());
@@ -162,6 +156,7 @@ public class InterfazReservarCita extends javax.swing.JFrame {
         vacunas();
         cbohospital.setEnabled(false);
         cbomedico.setEnabled(false);
+        cbofecha.setMinSelectableDate(fecha);
         setLocationRelativeTo(null);
         setTitle("Sistema de Vacunas");
     }
@@ -233,7 +228,7 @@ public class InterfazReservarCita extends javax.swing.JFrame {
 
         jLabel9.setText("Fecha:");
 
-        cbofecha.setDateFormatString("dd-MM-yyyy");
+        cbofecha.setDateFormatString("yyyy-MM-dd");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -261,13 +256,14 @@ public class InterfazReservarCita extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGap(189, 189, 189))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cbohospital, 0, 200, Short.MAX_VALUE)
-                            .addComponent(cboDistrito, 0, 200, Short.MAX_VALUE)
-                            .addComponent(cboHoras, 0, 200, Short.MAX_VALUE)
-                            .addComponent(cbomedico, 0, 200, Short.MAX_VALUE)
-                            .addComponent(cbovacuna, 0, 200, Short.MAX_VALUE)
-                            .addComponent(cbofecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbofecha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cbohospital, 0, 200, Short.MAX_VALUE)
+                                .addComponent(cboDistrito, 0, 200, Short.MAX_VALUE)
+                                .addComponent(cboHoras, 0, 200, Short.MAX_VALUE)
+                                .addComponent(cbomedico, 0, 200, Short.MAX_VALUE)
+                                .addComponent(cbovacuna, 0, 200, Short.MAX_VALUE)))
                         .addGap(158, 158, 158))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -297,9 +293,9 @@ public class InterfazReservarCita extends javax.swing.JFrame {
                 .addComponent(cbovacuna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cbofecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(41, 41, 41)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)

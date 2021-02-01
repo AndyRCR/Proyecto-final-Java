@@ -43,7 +43,7 @@ public class InterfazPaciente extends javax.swing.JFrame {
 
         jLabel2.setText("Bienvenid@");
 
-        jButton1.setText("Consultar mis datos");
+        jButton1.setText("Consultar mis datos y citas");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

@@ -88,20 +88,12 @@
                                   </Group>
                                   <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="txtdia" min="-2" pref="36" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                                  <Component id="cbomes" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="cboaño" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="txtapep" max="32767" attributes="0"/>
-                                          </Group>
+                                      <Component id="txtDNI" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="txtapep" min="-2" pref="225" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="txtDNI" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="cbofecha" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -160,18 +152,16 @@
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtDNI" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtdia" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbomes" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="cboaño" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtDNI" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="cbofecha" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -356,11 +346,10 @@
             <Property name="text" type="java.lang.String" value="(Mayor a 5 digitos)"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtdia">
-        </Component>
-        <Component class="com.toedter.calendar.JMonthChooser" name="cbomes">
-        </Component>
-        <Component class="com.toedter.calendar.JYearChooser" name="cboa&#xf1;o">
+        <Component class="com.toedter.calendar.JDateChooser" name="cbofecha">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

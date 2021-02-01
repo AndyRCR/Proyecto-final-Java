@@ -203,6 +203,7 @@ public class PacienteDAO {
                 pa.setContraseñaPaciente(rs.getString("password_paciente"));
                 pa.setEstadoPaciente(rs.getInt("registro_paciente"));
                 pa.setDniPaciente(rs.getString("DNI"));
+                pa.setFechaCitaPaciente(rs.getDate("fecha_emision"));
             }
 
             cn.close();

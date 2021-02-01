@@ -11,6 +11,7 @@ public class CitaMedica {
     private int estado;
     private int idvacuna;
     private String hora;
+    private String nombre_estado;
 
     public int getIdcita() {
         return idcita;
@@ -62,18 +63,6 @@ public class CitaMedica {
             case 4:
                 hora = "11:00-12:00";
                 break;
-            case 5:
-                hora = "12:00-13:00";
-                break;
-            case 6:
-                hora = "13:00-14:00";
-                break;
-            case 7:
-                hora = "14:00-15:00";
-                break;
-            case 8:
-                hora = "15:00-16:00";
-                break;
             default:
                 break;
         }
@@ -97,7 +86,14 @@ public class CitaMedica {
     }
 
     public void setEstado(int estado) {
+        if(estado==0) nombre_estado = "Pendiente";
+        else nombre_estado = "Concluido";
+        
         this.estado = estado;
+    }
+
+    public String getNombre_estado() {
+        return nombre_estado;
     }
 
     public int getIdvacuna() {

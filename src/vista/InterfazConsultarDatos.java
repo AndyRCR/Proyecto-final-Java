@@ -44,7 +44,7 @@ public class InterfazConsultarDatos extends javax.swing.JFrame {
     public void listarCitas(){
         pa = PacienteDAO.buscarPacientePorDNI(lbldni.getText());
         
-        String c[] = {"Hospital", "Vacuna", "Doctor", "Fecha", "Hora"};
+        String c[] = {"Hospital", "Vacuna", "Doctor", "Fecha", "Hora", "Estado"};
         DefaultTableModel mod=new DefaultTableModel(null,c);
         tablaCitas.setModel(mod);
         
@@ -54,7 +54,7 @@ public class InterfazConsultarDatos extends javax.swing.JFrame {
             me = MedicoDAO.buscarMedicoPorNombre(x.getMedico_asignado());
             ho = HospitalDAO.buscarHospitalPorIDHospital(x.getIdhospital());
             vac = VacunaDAO.buscarVacunaPorIDVacuna(x.getIdvacuna());
-            mod.addRow(new Object[]{ho.getNombre_hospital(), vac.getDescripcion(), me.getNombreMedico(), x.getFecha(), x.getHora()});
+            mod.addRow(new Object[]{ho.getNombre_hospital(), vac.getDescripcion(), me.getNombreMedico(), x.getFecha(), x.getHora(), x.getNombre_estado()});
         }
     }
     

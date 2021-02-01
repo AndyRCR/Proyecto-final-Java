@@ -4,6 +4,8 @@ import Usuarios.Paciente;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -14,7 +16,9 @@ public class InterfazCreacionCuenta extends javax.swing.JFrame {
     String dni_seleccionado;
     boolean validar = false, validarExistencia = false;
     Paciente pa = new Paciente();
-
+    private Date fecha = new Date();
+    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+    
     public void mensaje(String m) {
         JOptionPane.showMessageDialog(null, m);
     }
@@ -44,7 +48,8 @@ public class InterfazCreacionCuenta extends javax.swing.JFrame {
         }
 
         if (validarExistencia == false) {
-            validar = PacienteDAO.comprobarPaciente(txtDNI.getText(), txtnombre.getText(), txtapep.getText(), txtapem.getText(), cboaño.getYear()+"-"+(cbomes.getMonth()+1)+"-"+txtdia.getText());
+            Date date = cbofecha.getDate();
+            validar = PacienteDAO.comprobarPaciente(txtDNI.getText(), txtnombre.getText(), txtapep.getText(), txtapem.getText(), formatoFecha.format(date));
 
             if (validar == true) {
 
@@ -101,7 +106,6 @@ public class InterfazCreacionCuenta extends javax.swing.JFrame {
         txtConContra.setEnabled(false);
         lblpacientevalido.setVisible(false);
         btncrear.setEnabled(false);
-        cboaño.setMinimum(2021);
         setLocationRelativeTo(null);
         setTitle("Sistema de Vacunas");
     }
@@ -133,9 +137,7 @@ public class InterfazCreacionCuenta extends javax.swing.JFrame {
         lblconfirmar = new javax.swing.JLabel();
         lblpacientevalido = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        txtdia = new javax.swing.JTextField();
-        cbomes = new com.toedter.calendar.JMonthChooser();
-        cboaño = new com.toedter.calendar.JYearChooser();
+        cbofecha = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -210,6 +212,8 @@ public class InterfazCreacionCuenta extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jLabel11.setText("(Mayor a 5 digitos)");
 
+        cbofecha.setDateFormatString("yyyy-MM-dd");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -250,17 +254,11 @@ public class InterfazCreacionCuenta extends javax.swing.JFrame {
                                     .addComponent(jLabel4))
                                 .addGap(60, 60, 60)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDNI)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(txtdia, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(cbomes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(cboaño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(txtapep))
+                                        .addComponent(txtapep, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(txtDNI)))))
+                                    .addComponent(cbofecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -300,16 +298,14 @@ public class InterfazCreacionCuenta extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtdia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbomes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cboaño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel2))
+                    .addComponent(cbofecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtapep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -424,8 +420,7 @@ public class InterfazCreacionCuenta extends javax.swing.JFrame {
     private javax.swing.JButton btnatras;
     private javax.swing.JButton btncomprobar;
     private javax.swing.JButton btncrear;
-    private com.toedter.calendar.JYearChooser cboaño;
-    private com.toedter.calendar.JMonthChooser cbomes;
+    private com.toedter.calendar.JDateChooser cbofecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -445,7 +440,6 @@ public class InterfazCreacionCuenta extends javax.swing.JFrame {
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtapem;
     private javax.swing.JTextField txtapep;
-    private javax.swing.JTextField txtdia;
     private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 

@@ -1,4 +1,3 @@
-
 package vista;
 
 import Usuarios.CitaMedica;
@@ -7,39 +6,57 @@ import Usuarios.Vacuna;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.DAO.PacienteDAO;
 import modelo.DAO.VacunaDAO;
 
 public class InterfazValidarCita extends javax.swing.JFrame implements Runnable {
 
-    String hora,minutos,segundos;
+    String hora, minutos, segundos;
     Thread hilo;
     CitaMedica cm;
     Paciente pa;
     Vacuna vac;
+
+    SimpleDateFormat formatofecha = new SimpleDateFormat("YYYY-MM-dd");
+  
+    public void mensaje(String m){
+        JOptionPane.showMessageDialog(null, m);
+    }
     
-    public void hora(){
+    public void hora() {
         Calendar calendario = new GregorianCalendar();
         Date horaactual = new Date();
         calendario.setTime(horaactual);
-        hora = calendario.get(Calendar.HOUR_OF_DAY)>9?""+calendario.get(Calendar.HOUR_OF_DAY):"0"+calendario.get(Calendar.HOUR_OF_DAY);
-        minutos = calendario.get(Calendar.MINUTE)>9?""+calendario.get(Calendar.MINUTE):"0"+calendario.get(Calendar.MINUTE);
-        segundos = calendario.get(Calendar.SECOND)>9?""+calendario.get(Calendar.SECOND):"0"+calendario.get(Calendar.SECOND);
+        hora = calendario.get(Calendar.HOUR_OF_DAY) > 9 ? "" + calendario.get(Calendar.HOUR_OF_DAY) : "0" + calendario.get(Calendar.HOUR_OF_DAY);
+        minutos = calendario.get(Calendar.MINUTE) > 9 ? "" + calendario.get(Calendar.MINUTE) : "0" + calendario.get(Calendar.MINUTE);
+        segundos = calendario.get(Calendar.SECOND) > 9 ? "" + calendario.get(Calendar.SECOND) : "0" + calendario.get(Calendar.SECOND);
     }
-    
-    public static String fecha(){
+
+    public static String fecha() {
         Date fecha = new Date();
         SimpleDateFormat formatofecha = new SimpleDateFormat("YYYY-MM-dd");
         return formatofecha.format(fecha);
     }
     
-    public void pasarCitaMedica(CitaMedica cm){
+    public static String fecha_hora() {
+        Date fecha_hora = new Date();
+        SimpleDateFormat formatofecha_hora = new SimpleDateFormat("HH");
+        return formatofecha_hora.format(fecha_hora);
+    }
+
+    public void pasarCitaMedica(CitaMedica cm) {
         this.cm = cm;
         pa = PacienteDAO.buscarPacientePorIDPaciente(cm.getIdpaciente());
         vac = VacunaDAO.buscarVacunaPorIDVacuna(cm.getIdvacuna());
@@ -47,24 +64,38 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
         lblvacuna.setText(vac.getDescripcion());
         lblfecha.setText(cm.getFecha());
         lblturno.setText(cm.getHora());
+        run();
     }
-    
+
     public InterfazValidarCita() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Sistema de Vacunas");
         lblfechaactual.setText(fecha());
+        btnvalidar.setEnabled(false);
         hilo = new Thread(this);
         hilo.start();
     }
-    
+
     @Override
-    public void run(){
+    public void run() {
         Thread current = Thread.currentThread();
-        while(current == hilo){
-            hora();
-            lblhoraactual.setText(hora+":"+minutos+":"+segundos);
-            jPanel2.setBackground(new Color(51, 218, 255, 120));
+        try {
+            Date fecha1 = formatofecha.parse(fecha());
+            Date fecha2 = formatofecha.parse(lblfechaactual.getText());
+            while (current == hilo) {
+                hora();
+                lblhoraactual.setText(hora + ":" + minutos + ":" + segundos);
+
+                if (fecha1.equals(fecha2)) {
+                    btnvalidar.setEnabled(true);
+                } else {
+                    btnvalidar.setEnabled(false);
+                }
+            }
+
+        } catch (ParseException ex) {
+            Logger.getLogger(InterfazValidarCita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -97,19 +128,26 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("CITA");
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel1.setText("Paciente:");
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel2.setText("Vacuna:");
 
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel3.setText("Fecha:");
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel4.setText("Turno:");
 
+        jPanel2.setBackground(new java.awt.Color(153, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Fecha actual");
 
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Hora actual");
 
@@ -140,7 +178,7 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblfechaactual, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblhoraactual, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(38, Short.MAX_VALUE))
@@ -149,6 +187,11 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
         btnvalidar.setText("Validar");
 
         btncancelar.setText("Cancelar");
+        btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -211,7 +254,7 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
                     .addComponent(btncancelar))
                 .addGap(38, 38, 38)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,6 +270,10 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btncancelarActionPerformed
 
     /**
      * @param args the command line arguments

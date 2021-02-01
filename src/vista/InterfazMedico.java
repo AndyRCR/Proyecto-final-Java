@@ -26,7 +26,7 @@ public class InterfazMedico extends javax.swing.JFrame {
     CitaMedica cm;
     
     public void listarCitas() {
-        String c[] = {"Hospital", "Vacuna", "Paciente", "Fecha", "Hora"};
+        String c[] = {"Hospital", "Vacuna", "Paciente", "Fecha", "Hora", "Estado"};
         DefaultTableModel mod = new DefaultTableModel(null, c);
         tablaCitas.setModel(mod);
 
@@ -36,7 +36,7 @@ public class InterfazMedico extends javax.swing.JFrame {
             pa = PacienteDAO.buscarPacientePorIDPaciente(x.getIdpaciente());
             ho = HospitalDAO.buscarHospitalPorIDHospital(x.getIdhospital());
             vac = VacunaDAO.buscarVacunaPorIDVacuna(x.getIdvacuna());
-            mod.addRow(new Object[]{ho.getNombre_hospital(), vac.getDescripcion(), pa.getNombrePaciente(), x.getFecha(), x.getHora()});
+            mod.addRow(new Object[]{ho.getNombre_hospital(), vac.getDescripcion(), pa.getNombrePaciente(), x.getFecha(), x.getHora(), x.getNombre_estado()});
         }
     }
     
