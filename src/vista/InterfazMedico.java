@@ -201,6 +201,7 @@ public class InterfazMedico extends javax.swing.JFrame {
         InterfazHorarioMedico ventana = new InterfazHorarioMedico();
         ventana.setVisible(true);
         this.dispose();
+        ventana.pasarmedico(me);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

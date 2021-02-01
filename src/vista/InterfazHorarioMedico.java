@@ -1,6 +1,6 @@
-
 package vista;
 
+import Usuarios.Medico;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -8,7 +8,13 @@ import javax.swing.JPanel;
 
 public class InterfazHorarioMedico extends javax.swing.JFrame {
 
-    void distritos() {
+    Medico me;
+
+    public void pasarmedico(Medico me) {
+        this.me = me;
+    }
+
+    public void distritos() {
         cbodistrito.addItem("Seleccione un distrito");
         cbodistrito.addItem("Ancón");
         cbodistrito.addItem("Ate Vitarte");
@@ -54,14 +60,14 @@ public class InterfazHorarioMedico extends javax.swing.JFrame {
         cbodistrito.addItem("Villa El Salvador");
         cbodistrito.addItem("Villa María del Triunfo");
     }
-    
-    void horas() {
+
+    public void horas() {
         cboHoras.addItem("08:00-09:00");
         cboHoras.addItem("09:00-10:00");
         cboHoras.addItem("10:00-11:00");
         cboHoras.addItem("11:00-12:00");
     }
-    
+
     public InterfazHorarioMedico() {
         initComponents();
         setLocationRelativeTo(null);
@@ -358,6 +364,7 @@ public class InterfazHorarioMedico extends javax.swing.JFrame {
         InterfazMedico ventana = new InterfazMedico();
         ventana.setVisible(true);
         this.dispose();
+        ventana.pasarMedico(me);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
