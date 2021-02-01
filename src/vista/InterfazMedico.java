@@ -1,4 +1,3 @@
-
 package vista;
 
 import Usuarios.CitaMedica;
@@ -10,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import modelo.DAO.CitaMedicaDAO;
@@ -24,6 +24,16 @@ public class InterfazMedico extends javax.swing.JFrame {
     Paciente pa;
     Vacuna vac;
     CitaMedica cm;
+
+    public void pasarMedico(Medico me) {
+        this.me = me;
+        lblnombre.setText(me.getNombreMedico());
+        listarCitas();
+    }
+    
+    public void mensaje(String m){
+        JOptionPane.showMessageDialog(null, m);
+    }
     
     public void listarCitas() {
         String c[] = {"Hospital", "Vacuna", "Paciente", "Fecha", "Hora", "Estado"};
@@ -39,13 +49,7 @@ public class InterfazMedico extends javax.swing.JFrame {
             mod.addRow(new Object[]{ho.getNombre_hospital(), vac.getDescripcion(), pa.getNombrePaciente(), x.getFecha(), x.getHora(), x.getNombre_estado()});
         }
     }
-    
-    public void pasarMedico(Medico me){
-        this.me = me;
-        lblnombre.setText(me.getNombreMedico());
-        listarCitas();
-    }
-    
+
     public InterfazMedico() {
         initComponents();
         setLocationRelativeTo(null);
@@ -204,12 +208,16 @@ public class InterfazMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tablaCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCitasMouseClicked
-        InterfazValidarCita ventana = new InterfazValidarCita();
-        ventana.setVisible(true);
-        vac = VacunaDAO.buscarVacunaPorDescripcion(tablaCitas.getValueAt(tablaCitas.getSelectedRow(),1).toString());
+
+        vac = VacunaDAO.buscarVacunaPorDescripcion(tablaCitas.getValueAt(tablaCitas.getSelectedRow(), 1).toString());
         pa = PacienteDAO.buscarPacientePorNombre(tablaCitas.getValueAt(tablaCitas.getSelectedRow(), 2).toString());
         cm = CitaMedicaDAO.buscarCitaMedicaPorIDPacienteyVacuna(pa.getIdPaciente(), vac.getIdvacuna());
-        ventana.pasarCitaMedica(cm);
+        if (cm.getEstado() == 0) {
+            InterfazValidarCita ventana = new InterfazValidarCita();
+            ventana.setVisible(true);
+            ventana.pasarCitaMedica(cm);
+        } else mensaje("Esta cita ya fue atendida");
+
     }//GEN-LAST:event_tablaCitasMouseClicked
 
     /**

@@ -3,13 +3,10 @@ package vista;
 import Usuarios.CitaMedica;
 import Usuarios.Paciente;
 import Usuarios.Vacuna;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -18,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import modelo.DAO.CitaMedicaDAO;
 import modelo.DAO.PacienteDAO;
 import modelo.DAO.VacunaDAO;
 
@@ -30,9 +28,13 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
     Vacuna vac;
 
     SimpleDateFormat formatofecha = new SimpleDateFormat("YYYY-MM-dd");
-  
-    public void mensaje(String m){
+
+    public void mensaje(String m) {
         JOptionPane.showMessageDialog(null, m);
+    }
+
+    public int mensajeConfirmacion(String m) {
+        return JOptionPane.showConfirmDialog(this, m);
     }
     
     public void hora() {
@@ -49,24 +51,34 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
         SimpleDateFormat formatofecha = new SimpleDateFormat("YYYY-MM-dd");
         return formatofecha.format(fecha);
     }
-    
-    public static String fecha_hora() {
-        Date fecha_hora = new Date();
-        SimpleDateFormat formatofecha_hora = new SimpleDateFormat("HH");
-        return formatofecha_hora.format(fecha_hora);
-    }
 
     public void pasarCitaMedica(CitaMedica cm) {
         this.cm = cm;
         pa = PacienteDAO.buscarPacientePorIDPaciente(cm.getIdpaciente());
         vac = VacunaDAO.buscarVacunaPorIDVacuna(cm.getIdvacuna());
+        this.cm = CitaMedicaDAO.buscarCitaMedicaPorIDPacienteyVacuna(pa.getIdPaciente(), vac.getIdvacuna());
+        
         lblpaciente.setText(pa.getNombrePaciente());
         lblvacuna.setText(vac.getDescripcion());
         lblfecha.setText(cm.getFecha());
         lblturno.setText(cm.getHora());
-        run();
+        
+        if (fecha().equals(cm.getFecha()) && cm.getEstado()==0) {
+                btnvalidar.setEnabled(true);
+        } else {
+            btnvalidar.setEnabled(false);
+        }
     }
 
+    public void validarCita(){
+        int op = mensajeConfirmacion("Se aplico la vacuna?");
+        
+        if(op == 0){
+            CitaMedicaDAO.validarCitaMedica(cm);
+            this.dispose();
+        }
+    }
+    
     public InterfazValidarCita() {
         initComponents();
         setLocationRelativeTo(null);
@@ -79,24 +91,14 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
 
     @Override
     public void run() {
+
         Thread current = Thread.currentThread();
-        try {
-            Date fecha1 = formatofecha.parse(fecha());
-            Date fecha2 = formatofecha.parse(lblfechaactual.getText());
-            while (current == hilo) {
-                hora();
-                lblhoraactual.setText(hora + ":" + minutos + ":" + segundos);
 
-                if (fecha1.equals(fecha2)) {
-                    btnvalidar.setEnabled(true);
-                } else {
-                    btnvalidar.setEnabled(false);
-                }
-            }
-
-        } catch (ParseException ex) {
-            Logger.getLogger(InterfazValidarCita.class.getName()).log(Level.SEVERE, null, ex);
+        while (current == hilo) {
+            hora();
+            lblhoraactual.setText(hora + ":" + minutos + ":" + segundos);
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -185,6 +187,11 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
         );
 
         btnvalidar.setText("Validar");
+        btnvalidar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnvalidarActionPerformed(evt);
+            }
+        });
 
         btncancelar.setText("Cancelar");
         btncancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -274,6 +281,10 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btncancelarActionPerformed
+
+    private void btnvalidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvalidarActionPerformed
+        validarCita();
+    }//GEN-LAST:event_btnvalidarActionPerformed
 
     /**
      * @param args the command line arguments

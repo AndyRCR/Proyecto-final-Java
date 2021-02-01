@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CitaMedicaDAO {
 
@@ -136,6 +138,26 @@ public class CitaMedicaDAO {
             return cm;
         } catch (SQLException ex) {
             return null;
+        }
+    }
+    
+    public static void validarCitaMedica(CitaMedica cm){
+        String sql = "update cita_medica set estado=1 where idcita_medica=?";
+
+        Connection cn = TestConexion.abrir();
+
+        try {
+            PreparedStatement stm = cn.prepareStatement(sql);
+
+            stm.setInt(1, cm.getIdcita());
+
+            stm.executeUpdate();
+
+            stm.close();
+            cn.close();
+
+        } catch (Exception ex) {
+            Logger.getLogger(CitaMedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -10,7 +10,7 @@ public class TestConexion {
     //variables
     private static String url="jdbc:mysql://localhost:3306/bdhospital";
     private static String user="root";
-    private static String psw=""; 
+    private static String psw="";
     private static Connection cn;
     public static Connection abrir(){
         try {
