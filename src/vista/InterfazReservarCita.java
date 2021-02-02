@@ -59,7 +59,7 @@ public class InterfazReservarCita extends javax.swing.JFrame {
     }
 
     public void distritos() {
-        cboDistrito.addItem("Seleccion un distrito");
+        cboDistrito.addItem("Seleccione un distrito");
         cboDistrito.addItem("Ancón");
         cboDistrito.addItem("Ate Vitarte");
         cboDistrito.addItem("Barranco");
@@ -143,7 +143,7 @@ public class InterfazReservarCita extends javax.swing.JFrame {
         me = MedicoDAO.buscarMedicoPorNombre(cbomedico.getSelectedItem().toString());
         ho = HospitalDAO.buscarHospitalPorNombre(cbohospital.getSelectedItem().toString());
         int conteo = CitaMedicaDAO.comprobarNumeroDePacientes(cbomedico.getSelectedItem().toString(), cboHoras.getSelectedIndex(), formatoFecha.format(date));
-        mensaje("" + conteo);
+        mensaje("Hay " + (6 - conteo) + " citas disponibles");
         if (conteo < 6) {
             CitaMedicaDAO.crearCitaMedica(pa, ho, me, cboHoras.getSelectedIndex(), formatoFecha.format(date), cbovacuna.getSelectedIndex());
             mensaje("Cita reservada");
