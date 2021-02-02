@@ -1,4 +1,3 @@
-
 package vista;
 
 import Usuarios.CitaMedica;
@@ -24,40 +23,42 @@ public class InterfazConsultarDatos extends javax.swing.JFrame {
     Medico me;
     Hospital ho;
     Vacuna vac;
-    
-    public void pasarPaciente(Paciente pa){
-        this.pa=pa;
+
+    public void pasarPaciente(Paciente pa) {
+        this.pa = pa;
         separarNombresApellidos(pa.getNombrePaciente());
         lbldni.setText(pa.getDniPaciente());
         listarCitas();
     }
-    
-    public void separarNombresApellidos(String completo){
+
+    public void separarNombresApellidos(String completo) {
         String datos[] = completo.split(" ");
-        lblapellido.setText(datos[0]+" "+datos[1]);
-        if(datos.length==3){
+        lblapellido.setText(datos[0] + " " + datos[1]);
+        if (datos.length == 3) {
             lblnombre.setText(datos[2]);
-        } else lblnombre.setText(datos[2]+" "+datos[3]);
-        
+        } else {
+            lblnombre.setText(datos[2] + " " + datos[3]);
+        }
+
     }
-    
-    public void listarCitas(){
+
+    public void listarCitas() {
         pa = PacienteDAO.buscarPacientePorDNI(lbldni.getText());
-        
+
         String c[] = {"Hospital", "Vacuna", "Doctor", "Fecha", "Hora", "Estado"};
-        DefaultTableModel mod=new DefaultTableModel(null,c);
+        DefaultTableModel mod = new DefaultTableModel(null, c);
         tablaCitas.setModel(mod);
-        
+
         ArrayList<CitaMedica> citas = CitaMedicaDAO.buscarCitaMedicaPorIDPaciente(pa.getIdPaciente());
-        
-        for(CitaMedica x:citas){
+
+        for (CitaMedica x : citas) {
             me = MedicoDAO.buscarMedicoPorNombre(x.getMedico_asignado());
             ho = HospitalDAO.buscarHospitalPorIDHospital(x.getIdhospital());
             vac = VacunaDAO.buscarVacunaPorIDVacuna(x.getIdvacuna());
             mod.addRow(new Object[]{ho.getNombre_hospital(), vac.getDescripcion(), me.getNombreMedico(), x.getFecha(), x.getHora(), x.getNombre_estado()});
         }
     }
-    
+
     public InterfazConsultarDatos() {
         initComponents();
         setLocationRelativeTo(null);
@@ -228,34 +229,7 @@ public class InterfazConsultarDatos extends javax.swing.JFrame {
         listarCitas();
     }//GEN-LAST:event_btnactualizarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfazConsultarDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfazConsultarDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfazConsultarDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfazConsultarDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InterfazConsultarDatos().setVisible(true);

@@ -28,15 +28,15 @@ public class InterfazMedico extends javax.swing.JFrame {
     Vacuna vac;
     CitaMedica cm;
     Distrito dis;
-    
+
     public void pasarMedico(Medico me) {
         this.me = me;
         lblnombre.setText(me.getNombreMedico());
         listarCitas();
         llenarDatos();
     }
-    
-    public void llenarDatos(){
+
+    public void llenarDatos() {
         me = MedicoDAO.buscarMedicoPorNombre(lblnombre.getText());
         ho = HospitalDAO.buscarHospitalPorIDHospital(me.getIdhospital());
         dis = DistritoDAO.buscarDistritoPorID(ho.getDistrito_hospital());
@@ -44,11 +44,11 @@ public class InterfazMedico extends javax.swing.JFrame {
         lblhospital.setText(ho.getNombre_hospital());
         lblturno.setText(me.getHora());
     }
-    
-    public void mensaje(String m){
+
+    public void mensaje(String m) {
         JOptionPane.showMessageDialog(null, m);
     }
-    
+
     public void listarCitas() {
         String c[] = {"Hospital", "Vacuna", "Paciente", "Fecha", "Hora", "Estado"};
         DefaultTableModel mod = new DefaultTableModel(null, c);
@@ -245,38 +245,13 @@ public class InterfazMedico extends javax.swing.JFrame {
             InterfazValidarCita ventana = new InterfazValidarCita();
             ventana.setVisible(true);
             ventana.pasarCitaMedica(cm);
-        } else mensaje("Esta cita ya fue atendida");
+        } else {
+            mensaje("Esta cita ya fue atendida");
+        }
 
     }//GEN-LAST:event_tablaCitasMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfazMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfazMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfazMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfazMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InterfazMedico().setVisible(true);

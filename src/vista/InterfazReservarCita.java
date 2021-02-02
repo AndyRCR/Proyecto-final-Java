@@ -143,11 +143,13 @@ public class InterfazReservarCita extends javax.swing.JFrame {
         me = MedicoDAO.buscarMedicoPorNombre(cbomedico.getSelectedItem().toString());
         ho = HospitalDAO.buscarHospitalPorNombre(cbohospital.getSelectedItem().toString());
         int conteo = CitaMedicaDAO.comprobarNumeroDePacientes(cbomedico.getSelectedItem().toString(), cboHoras.getSelectedIndex(), formatoFecha.format(date));
-        mensaje(""+conteo);
+        mensaje("" + conteo);
         if (conteo < 6) {
             CitaMedicaDAO.crearCitaMedica(pa, ho, me, cboHoras.getSelectedIndex(), formatoFecha.format(date), cbovacuna.getSelectedIndex());
             mensaje("Cita reservada");
-        } else mensaje("No hay cupos para este horario y medico, por favor intente con otras opciones");
+        } else {
+            mensaje("No hay cupos para este horario y medico, por favor intente con otras opciones");
+        }
 
         reiniciarCampos();
     }
@@ -358,34 +360,7 @@ public class InterfazReservarCita extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfazReservarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfazReservarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfazReservarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfazReservarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InterfazReservarCita().setVisible(true);

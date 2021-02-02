@@ -36,7 +36,7 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
     public int mensajeConfirmacion(String m) {
         return JOptionPane.showConfirmDialog(this, m);
     }
-    
+
     public void hora() {
         Calendar calendario = new GregorianCalendar();
         Date horaactual = new Date();
@@ -57,28 +57,28 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
         pa = PacienteDAO.buscarPacientePorIDPaciente(cm.getIdpaciente());
         vac = VacunaDAO.buscarVacunaPorIDVacuna(cm.getIdvacuna());
         this.cm = CitaMedicaDAO.buscarCitaMedicaPorIDPacienteyVacuna(pa.getIdPaciente(), vac.getIdvacuna());
-        
+
         lblpaciente.setText(pa.getNombrePaciente());
         lblvacuna.setText(vac.getDescripcion());
         lblfecha.setText(cm.getFecha());
         lblturno.setText(cm.getHora());
-        
-        if (fecha().equals(cm.getFecha()) && cm.getEstado()==0) {
-                btnvalidar.setEnabled(true);
+
+        if (fecha().equals(cm.getFecha()) && cm.getEstado() == 0) {
+            btnvalidar.setEnabled(true);
         } else {
             btnvalidar.setEnabled(false);
         }
     }
 
-    public void validarCita(){
+    public void validarCita() {
         int op = mensajeConfirmacion("Se aplico la vacuna?");
-        
-        if(op == 0){
+
+        if (op == 0) {
             CitaMedicaDAO.validarCitaMedica(cm);
             this.dispose();
         }
     }
-    
+
     public InterfazValidarCita() {
         initComponents();
         setLocationRelativeTo(null);
@@ -286,34 +286,7 @@ public class InterfazValidarCita extends javax.swing.JFrame implements Runnable 
         validarCita();
     }//GEN-LAST:event_btnvalidarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfazValidarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfazValidarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfazValidarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfazValidarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InterfazValidarCita().setVisible(true);
