@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 public class TestConexion {
   
     //variables
-    private static String url="jdbc:mysql://localhost:3306/bdhospital";
-    private static String user="root";
-    private static String psw="";
+    private static String url="jdbc:mysql://den1.mysql4.gear.host:3306/dbhospital";
+    private static String user="dbhospital";
+    private static String psw="bdhospital1.";
     private static Connection cn;
     public static Connection abrir(){
         try {
