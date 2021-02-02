@@ -81,7 +81,8 @@ public class MedicoDAO {
                 me.setNombreMedico(rs.getString("nombre_medico"));
                 me.setContraseñaMedico(rs.getString("password_medico"));
                 me.setDniMedico(rs.getString("dni_medico"));
-                
+                me.setIdhospital(rs.getInt("idhospital"));
+                me.setTurno(rs.getInt("turno"));
             }
 
             cn.close();
@@ -109,6 +110,8 @@ public class MedicoDAO {
                 me.setNombreMedico(rs.getString("nombre_medico"));
                 me.setContraseñaMedico(rs.getString("password_medico"));
                 me.setDniMedico(rs.getString("dni_medico"));
+                me.setIdhospital(rs.getInt("idhospital"));
+                me.setTurno(rs.getInt("turno"));
             }
 
             cn.close();
@@ -137,7 +140,8 @@ public class MedicoDAO {
                 me.setNombreMedico(rs.getString("nombre_medico"));
                 me.setContraseñaMedico(rs.getString("password_medico"));
                 me.setDniMedico(rs.getString("dni_medico"));
-                
+                me.setIdhospital(rs.getInt("idhospital"));
+                me.setTurno(rs.getInt("turno"));
             }
 
             cn.close();
@@ -167,7 +171,8 @@ public class MedicoDAO {
                 me.setNombreMedico(rs.getString("nombre_medico"));
                 me.setContraseñaMedico(rs.getString("password_medico"));
                 me.setDniMedico(rs.getString("dni_medico"));
-                
+                me.setIdhospital(rs.getInt("idhospital"));
+                me.setTurno(rs.getInt("turno"));
                 medicos.add(me);
             }
 

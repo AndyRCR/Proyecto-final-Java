@@ -20,8 +20,8 @@ public class InterfazReservarCita extends javax.swing.JFrame {
     ArrayList<Hospital> hospitales;
     ArrayList<Medico> medicos;
     Paciente pa = new Paciente();
-    Medico me= new Medico();
-    Hospital ho= new Hospital();
+    Medico me = new Medico();
+    Hospital ho = new Hospital();
     private Date fecha = new Date();
     SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -29,19 +29,18 @@ public class InterfazReservarCita extends javax.swing.JFrame {
         this.pa = pa;
     }
 
-    
     public void mensaje(String m) {
         JOptionPane.showMessageDialog(null, m);
     }
 
-    public void reiniciarCampos(){
+    public void reiniciarCampos() {
         cboDistrito.setSelectedIndex(0);
         cboHoras.setSelectedIndex(0);
         cbovacuna.setSelectedIndex(0);
         cbofecha.setDate(null);
         cbofecha.setEnabled(false);
     }
-    
+
     public void vacunas() {
         cbovacuna.addItem("Seleccione una vacuna");
         cbovacuna.addItem("Hepatitis B");
@@ -143,8 +142,13 @@ public class InterfazReservarCita extends javax.swing.JFrame {
         Date date = cbofecha.getDate();
         me = MedicoDAO.buscarMedicoPorNombre(cbomedico.getSelectedItem().toString());
         ho = HospitalDAO.buscarHospitalPorNombre(cbohospital.getSelectedItem().toString());
-        CitaMedicaDAO.crearCitaMedica(pa, ho, me, cboHoras.getSelectedIndex(), formatoFecha.format(date), cbovacuna.getSelectedIndex());
-        mensaje("Cita reservada");
+        int conteo = CitaMedicaDAO.comprobarNumeroDePacientes(cbomedico.getSelectedItem().toString(), cboHoras.getSelectedIndex(), formatoFecha.format(date));
+        mensaje(""+conteo);
+        if (conteo < 6) {
+            CitaMedicaDAO.crearCitaMedica(pa, ho, me, cboHoras.getSelectedIndex(), formatoFecha.format(date), cbovacuna.getSelectedIndex());
+            mensaje("Cita reservada");
+        } else mensaje("No hay cupos para este horario y medico, por favor intente con otras opciones");
+
         reiniciarCampos();
     }
 
@@ -346,10 +350,12 @@ public class InterfazReservarCita extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        if(cboDistrito.getSelectedIndex()!=0 && cboHoras.getSelectedIndex()!=0 && cbovacuna.getSelectedIndex()!=0 && cbofecha.getDate()!=null){
+        if (cboDistrito.getSelectedIndex() != 0 && cboHoras.getSelectedIndex() != 0 && cbovacuna.getSelectedIndex() != 0 && cbofecha.getDate() != null) {
             reservarCita();
-        } else mensaje("Rellene todos los campos");
-        
+        } else {
+            mensaje("Rellene todos los campos");
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

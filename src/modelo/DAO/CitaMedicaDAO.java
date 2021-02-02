@@ -160,4 +160,29 @@ public class CitaMedicaDAO {
             Logger.getLogger(CitaMedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static int comprobarNumeroDePacientes(String nombre, int turno, String fecha){
+        int n=0;
+        String sql = "select count(*) from cita_medica where nombre_medico=? and turno_vacuna=? and fecha=?";
+        
+        Connection cn = TestConexion.abrir();
+        
+        try {
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.setInt(2, turno);
+            ps.setString(3, fecha);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                n=rs.getInt(1);
+            }
+            return n;
+            
+        } catch (Exception ex) {
+            Logger.getLogger(PacienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }  
+    }
 }

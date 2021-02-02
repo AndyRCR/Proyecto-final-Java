@@ -1,19 +1,40 @@
 package Usuarios;
 
-public class Medico{
-    
+public class Medico {
+
     private int idMedico;
     private String nombreMedico;
     private String dniMedico;
     private String contraseñaMedico;
     private int turno;
     private int idhospital;
+    private String hora;
+
+    public String getHora() {
+        return hora;
+    }
 
     public int getTurno() {
         return turno;
     }
 
     public void setTurno(int turno) {
+        switch (turno) {
+            case 1:
+                hora = "8:00-9:00";
+                break;
+            case 2:
+                hora = "9:00-10:00";
+                break;
+            case 3:
+                hora = "10:00-11:00";
+                break;
+            case 4:
+                hora = "11:00-12:00";
+                break;
+            default:
+                break;
+        }
         this.turno = turno;
     }
 
@@ -24,7 +45,6 @@ public class Medico{
     public void setIdhospital(int idhospital) {
         this.idhospital = idhospital;
     }
-    
 
     public int getIdMedico() {
         return idMedico;
@@ -58,6 +78,4 @@ public class Medico{
         this.contraseñaMedico = contraseñaMedico;
     }
 
-
-    
 }
